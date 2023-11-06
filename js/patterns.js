@@ -1,0 +1,1 @@
+// Will put array here. Use instead before using sql database to retrieve patterns

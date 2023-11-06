@@ -159,12 +159,19 @@ input[type="search"]::placeholder {
     animation: floatHearts 1s infinite;
 }
 
-.categeory-list {
-  
-}
+
 
 .category-list li {
     display: inline;
+    background-color: var(--color-1);
+    color: var(--color-text);
+    border-radius: 5px;
+    padding: 0 7px 0 7px;
+}
+
+.category-list li:hover {
+    background-color: var(--color-text);
+    color: var(--color-1); 
 }
 
 
@@ -222,10 +229,11 @@ li {
     grid-column-gap: 40px;
     grid-row-gap: 40px;
     justify-content: space-evenly;
-
   }
 
+
   .card {
+    color: black;
     position: relative;
     width: 270px; 
     height: 380px; 
@@ -269,11 +277,13 @@ li {
     font-size: 15px;
 }
 
-.card img {
+.pattern-img {
     border-radius: 10px 10px 0 0;
     width: 270px;
     height: 270px;
     border-bottom: 1px solid black;;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
 }
 
 footer {
