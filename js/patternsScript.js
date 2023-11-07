@@ -17,7 +17,7 @@ const crochetPatterns = [
     },
     {
         title: 'Beanie Hat',
-        imageUrl: 'https://i.ytimg.com/an_webp/o0YCzR0TmtA/mqdefault_6s.webp?du=3000&sqp=CJCYoaoG&rs=AOn4CLCFGDYxOjhJ50-tXkjl-wxoL0Fe9w',
+        imageUrl: '',
         author: 'Cherilyn Q',
         description: 'Beanie Hat. Easy 1 row repeat pattern.',
         categories: ['Easy', 'Hats'],
@@ -167,13 +167,65 @@ function createCard(pattern) {
 
 function displayPatternsByCategory(category) {
     var patternList = document.getElementById('pattern-list');
-    patternList.innerHTML = ''; // Clear the current pattern list
+    var filteredPatterns = [];
+    
+    if (category === 'All') {
+        filteredPatterns = sortedPatterns;
+    } else {
+        filteredPatterns = sortedPatterns.filter(function(pattern) {
+            return pattern.categories.includes(category);
+        });
+    }
 
-    // change pattern here
-    crochetPatterns.forEach(function(pattern) {
-        if (category === 'All' || pattern.categories.includes(category)) {
-            var patternCard = createCard(pattern); // Use the createCard function to generate the card
-            patternList.appendChild(patternCard);
-        }
+    // Remove existing patterns from the list
+    while (patternList.firstChild) {
+        patternList.removeChild(patternList.firstChild);
+    }
+
+    // Add the filtered patterns to the list
+    filteredPatterns.forEach(function(pattern) {
+        var patternCard = createCard(pattern);
+        patternList.appendChild(patternCard);
     });
 }
+
+// search functionality
+function performSearch() {
+    var searchTerm = document.getElementById("patternSearch").value.toLowerCase();
+    var searchResults = searchPatterns(searchTerm);
+
+    var patternList = document.getElementById('pattern-list');
+    var allPatterns = patternList.getElementsByClassName('card-container');
+
+    for (var i = 0; i < allPatterns.length; i++) {
+        var pattern = allPatterns[i];
+        var patternTitle = pattern.querySelector('.pattern-name').textContent.toLowerCase();
+
+        if (patternTitle.includes(searchTerm)) {
+            pattern.style.display = "block";
+        } else {
+            pattern.style.display = "none";
+        }
+    }
+}
+
+function searchPatterns(searchTerm) {
+    return sortedPatterns.filter(pattern => pattern.title.toLowerCase().includes(searchTerm.toLowerCase()));
+}
+
+function displaySearchResults(results) {
+    var patternList = document.getElementById('pattern-list');
+    patternList.innerHTML = ''; // Clear the current pattern list
+
+    results.forEach(function(pattern) {
+        var patternCard = createCard(pattern); // Use the createCard function to generate the card
+        patternList.appendChild(patternCard);
+    });
+}
+document.getElementById("searchButton").addEventListener("click", performSearch);
+
+
+
+
+
+

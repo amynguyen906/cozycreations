@@ -120,7 +120,7 @@ button img {
     align-items: center;
 }
 
-input[type="search"] {
+input[type="text"] {
     font-family: var(--font-body);
     font-size: 12pt;
     border-radius: 5px !important;
@@ -134,7 +134,7 @@ input[type="search"] {
     cursor: auto !important;
 }
 
-input[type="search"]::placeholder {
+input[type="text"]::placeholder {
     text-align:center;
 }
 
