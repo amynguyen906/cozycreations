@@ -73,6 +73,8 @@ const crochetPatterns = [
     },
 ];
 
+var sortedPatterns = sortPatternsAlphabetically(crochetPatterns);
+
 // sorts the patterns alphabetically -- add functionality later 
 function sortPatternsAlphabetically(patterns) {
     return patterns.slice().sort(function(a, b) {
@@ -87,12 +89,11 @@ function sortPatternsAlphabetically(patterns) {
         return 0;
     });
 }
-var sortedPatterns = sortPatternsAlphabetically(crochetPatterns);
 
 document.addEventListener('DOMContentLoaded', function() {
     var patternList = document.getElementById('pattern-list');
     var categoryList = document.querySelectorAll('.category-list li');
-
+    // adds click functionbility to each list item
     categoryList.forEach(function(category) {
         category.addEventListener('click', function() {
             var selectedCategory = this.textContent;
@@ -103,29 +104,29 @@ document.addEventListener('DOMContentLoaded', function() {
     displayPatternsByCategory('All'); // Display all patterns initially
 });
 
+// creates card; called for each pattern
 function createCard(pattern) {
-    // Create the outer anchor element
     var patternLink = document.createElement('a');
-    patternLink.href = pattern.link; // Set the link URL
+    patternLink.href = pattern.link; // Sets the link URL
 
-    // Create the card container
+    // creates the card container
     var cardContainer = document.createElement('div');
     cardContainer.classList.add('card-container');
 
-    // Create the card element
+    // creates the card element
     var card = document.createElement('div');
     card.classList.add('card');
 
-    // Create the card front
+    // create card-front
     var cardFront = document.createElement('div');
     cardFront.classList.add('card-front');
 
-    // Create the image element
+    // create the image element
     var patternImage = document.createElement('img');
     patternImage.src = pattern.imageUrl;
     patternImage.classList.add('pattern-img');
 
-    // Create the pattern name element
+    // create the pattern name element
     var patternName = document.createElement('h4');
     patternName.classList.add('pattern-name');
     patternName.textContent = pattern.title;
@@ -135,36 +136,37 @@ function createCard(pattern) {
     patternBy.classList.add('pattern-by');
     patternBy.textContent = 'By ' + pattern.author;
 
-    // Append elements to card front
+    // append to card front
     cardFront.appendChild(patternImage);
     cardFront.appendChild(patternName);
     cardFront.appendChild(patternBy);
 
-    // Create the card back
+    // create card back
     var cardBack = document.createElement('div');
     cardBack.classList.add('card-back');
 
-    // Create the pattern description element
+    // create pattern description
     var patternDescription = document.createElement('p');
     patternDescription.classList.add('pattern-description');
     patternDescription.textContent = pattern.description;
 
-    // Append pattern description to card back
+    // append pattern description to card back
     cardBack.appendChild(patternDescription);
 
-    // Append card front and card back to card
+    // append card front and card back to card
     card.appendChild(cardFront);
     card.appendChild(cardBack);
 
-    // Append card to card container
+    // append card to card container
     cardContainer.appendChild(card);
 
-    // Append card container to anchor element
+    // append card container to anchor element
     patternLink.appendChild(cardContainer);
 
     return patternLink;
 }
 
+// displays pattern by chosen category
 function displayPatternsByCategory(category) {
     var patternList = document.getElementById('pattern-list');
     var filteredPatterns = [];
@@ -177,12 +179,12 @@ function displayPatternsByCategory(category) {
         });
     }
 
-    // Remove existing patterns from the list
+    // remove from pattern list
     while (patternList.firstChild) {
         patternList.removeChild(patternList.firstChild);
     }
 
-    // Add the filtered patterns to the list
+    // add filtered patterns to the list
     filteredPatterns.forEach(function(pattern) {
         var patternCard = createCard(pattern);
         patternList.appendChild(patternCard);
@@ -223,9 +225,4 @@ function displaySearchResults(results) {
     });
 }
 document.getElementById("searchButton").addEventListener("click", performSearch);
-
-
-
-
-
 
